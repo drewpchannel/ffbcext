@@ -17,6 +17,9 @@
     "permissions": [
         "activeTab"
     ],
+    "web_accessible_resources": [
+        "rankings/fpec.csv"
+    ],
     "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
 }
 

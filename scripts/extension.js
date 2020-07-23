@@ -1,3 +1,31 @@
+function getCSVFile() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', chrome.extension.getURL('rankings/fpec.csv'), true);
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+        {
+            createFileArray(xhr.response);
+        }
+    };
+    xhr.send();
+}
+
+function createFileArray(file) {
+    var fileNoNewLines = file.replace( /[\r\n\"]+/gm, "" );
+    var arrayPlayerNames = [];
+    var fileArray = fileNoNewLines.split(',');
+    fileArray.forEach(elem => {
+        if (elem.length > 8) {
+            arrayPlayerNames.push(elem);
+        }
+    });
+    console.log(arrayPlayerNames);
+    createPlayersTbl(arrayPlayerNames);
+}
+
+getCSVFile();
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('status').textContent = "Extension loaded";
     var button = document.getElementById('changelinks');
@@ -14,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function createPlayersTbl(response) {
-    //var response = [["Henry", "TE"], ["bob", "wr"],["Henry", "TE"], ["bob", "wr"],["Henry", "TE"], ["bob", "wr"],["Henry", "TE"], ["bob", "wr"],["Henry", "TE"], ["bob", "wr"]];
     var body = document.getElementsByTagName("body")[0];
     var table = document.createElement("playersTable");
     table.className = "table";
@@ -33,7 +60,7 @@ function createPlayersTbl(response) {
     table.appendChild(thead); 
 
     if (response) {
-        response.forEach((elem) => {
+        response.forEach((elem, ind) => {
             var tr = document.createElement("tr");
             for (var o in elem) {
                 var td = document.createElement("td");
