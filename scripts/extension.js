@@ -38,20 +38,19 @@ function createFileArray(file, responseFromSite) {
 }
 
 function checkForDrafted(arrayPlayerNames, responseFromSite) {
-    console.log(responseFromSite);
-    console.log(arrayPlayerNames);
     var undraftedPlayers = [];
-    responseFromSite.forEach((elem, ind) => {
-        arrayPlayerNames.forEach((elemPN, indPN) => {
-            if (responseFromSite[ind][0] == arrayPlayerNames[indPN]) {
-                undraftedPlayers.push(arrayPlayerNames[indPN]);
+    arrayPlayerNames.forEach((elem, ind) => {
+        responseFromSite.forEach((elemFS, indFS) => {
+            if (responseFromSite[indFS][0] == arrayPlayerNames[ind]) {
+                console.log(responseFromSite[indFS][0] + " " + arrayPlayerNames[ind]);
+                undraftedPlayers.push(arrayPlayerNames[ind]);
             }
         });
     });
     createPlayersTbl(undraftedPlayers);
 }
 
-function createPlayersTbl(response) {
+function createPlayersTbl(undraftedPlayers) {
     var body = document.getElementsByTagName("body")[0];
     var table = document.createElement("playersTable");
     table.className = "table";
@@ -61,7 +60,6 @@ function createPlayersTbl(response) {
     var headRow = document.createElement("tr");
 
     ["Player", "Pos - Team"].forEach((elem) => {
-        console.log('foreach header');
         var th = document.createElement("th");
         th.appendChild(document.createTextNode(elem));
         headRow.appendChild(th);
@@ -69,8 +67,8 @@ function createPlayersTbl(response) {
     thead.appendChild(headRow);
     table.appendChild(thead); 
 
-    if (response) {
-        response.forEach((elem, ind) => {
+    if (undraftedPlayers) {
+        undraftedPlayers.forEach((elem, ind) => {
             var tr = document.createElement("tr");
             var td = document.createElement("td");
             td.appendChild(document.createTextNode(elem));
@@ -80,6 +78,6 @@ function createPlayersTbl(response) {
         table.appendChild(tbody);
     body.appendChild(table);
     } else {
-        var response = [["response empty", "no data"]];
+        var undraftedPlayers = [["response empty", "no data"]];
     }
 }
