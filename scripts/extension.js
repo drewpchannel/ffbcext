@@ -42,7 +42,6 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
     arrayPlayerNames.forEach((elem, ind) => {
         responseFromSite.forEach((elemFS, indFS) => {
             if (responseFromSite[indFS][0] == arrayPlayerNames[ind]) {
-                console.log(responseFromSite[indFS][0] + " " + arrayPlayerNames[ind]);
                 undraftedPlayers.push(arrayPlayerNames[ind]);
             }
         });
@@ -59,7 +58,7 @@ function createPlayersTbl(undraftedPlayers) {
     var tbody = document.createElement("tbody");
     var headRow = document.createElement("tr");
 
-    ["Player", "Pos - Team"].forEach((elem) => {
+    ["Player"].forEach((elem) => {
         var th = document.createElement("th");
         th.appendChild(document.createTextNode(elem));
         headRow.appendChild(th);
