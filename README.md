@@ -27,6 +27,8 @@ Made to learn about the way extensions interact with the DOM as practice for a b
 
 
 ## Todo:
+fix defenses 
+
 remove old list when clicking change again
 
 make sorting for pos
