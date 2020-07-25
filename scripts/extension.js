@@ -49,6 +49,9 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
 
 function createPlayersTbl(undraftedPlayers) {
     var body = document.getElementsByTagName("body")[0];
+    if (document.getElementsByTagName("playersTable").length != 0) {
+        document.getElementsByTagName("playersTable")[0].remove();
+    }
     var table = document.createElement("playersTable");
     table.className = "table";
 
