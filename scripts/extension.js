@@ -53,13 +53,13 @@ function createPlayersTbl(undraftedPlayers) {
         document.getElementsByTagName("playersTable")[0].remove();
     }
     var table = document.createElement("playersTable");
-    table.className = "table";
+    table.setAttribute("id", "playersTable");
 
     var thead = document.createElement("thead");
     var tbody = document.createElement("tbody");
     var headRow = document.createElement("tr");
 
-    ["Player"].forEach((elem) => {
+    ["Player", "Position"].forEach((elem) => {
         var th = document.createElement("th");
         th.appendChild(document.createTextNode(elem));
         headRow.appendChild(th);

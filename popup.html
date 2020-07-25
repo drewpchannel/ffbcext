@@ -7,25 +7,29 @@
       .container {
         max-height: 100px;
         min-height: 20px;
-        width: 150px;
+        width: 290px;
         background: white;
       }
       body {
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
       }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
-      }
       .patient-list {
         max-height: 250px;
         overflow-y: scroll;
         overflow-x: hidden;
         max-width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td, th {
+        border: 1px solid #999;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      tbody tr:nth-child(odd) {
+        background: #eee;
       }
     </style>
     <div class="container">
