@@ -27,9 +27,9 @@ function createFileArray(file, responseFromSite) {
     var fileNoNewLines = file.replace( /[\r\n\"]+/gm, "" );
     var arrayPlayerNames = [];
     var fileArray = fileNoNewLines.split(',');
-    fileArray.forEach(elem => {
+    fileArray.forEach((elem, ind) => {
         if (elem.length > 8) {
-            arrayPlayerNames.push(elem);
+            arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind +2]]);
         }
     });
     checkForDrafted(arrayPlayerNames, responseFromSite);
@@ -39,7 +39,7 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
     var undraftedPlayers = [];
     arrayPlayerNames.forEach((elem, ind) => {
         responseFromSite.forEach((elemFS, indFS) => {
-            if (responseFromSite[indFS][0] == arrayPlayerNames[ind]) {
+            if (responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
                 undraftedPlayers.push(arrayPlayerNames[ind]);
             }
         });
@@ -59,7 +59,7 @@ function createPlayersTbl(undraftedPlayers) {
     var tbody = document.createElement("tbody");
     var headRow = document.createElement("tr");
 
-    ["Player", "Position"].forEach((elem) => {
+    ["Player", "Position", "Team"].forEach((elem) => {
         var th = document.createElement("th");
         th.appendChild(document.createTextNode(elem));
         headRow.appendChild(th);
@@ -71,8 +71,14 @@ function createPlayersTbl(undraftedPlayers) {
         undraftedPlayers.forEach((elem, ind) => {
             var tr = document.createElement("tr");
             var td = document.createElement("td");
-            td.appendChild(document.createTextNode(elem));
+            td.appendChild(document.createTextNode(elem[0]));
             tr.appendChild(td);
+            var tdPos = document.createElement("td");
+            tdPos.appendChild(document.createTextNode(elem[2]));
+            tr.appendChild(tdPos);
+            var tdTem = document.createElement("td");
+            tdTem.appendChild(document.createTextNode(elem[1]));
+            tr.appendChild(tdTem);
             tbody.appendChild(tr);
         });
         table.appendChild(tbody);
