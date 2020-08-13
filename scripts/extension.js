@@ -8,7 +8,38 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    var settingsButton = document.getElementById('settings');
+    settingsButton.addEventListener('click', function () {
+        var body = document.getElementsByTagName("body")[0];
+        if (document.getElementsByTagName("playersTable").length != 0) {
+            document.getElementsByTagName("playersTable")[0].remove();
+        }
+        var setCSVName = document.createElement("input");
+        setCSVName.type = "text";
+        setCSVName.value = "Enter CSV Filename";
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(setCSVName);
+        setCSVName.addEventListener('click', () => {
+            setCSVName.value = "";
+        })
+        var saveButton = document.createElement("button");
+        saveButton.innerHTML = "Save";
+        saveButton.addEventListener('click', () => {
+            if (setCSVName.value != "" || "Enter CSV Filename") {
+                console.log('rdy to write');
+            }
+        })
+        body.appendChild(saveButton);
+    })
 });
+
+const getSettings = callback => {
+    fetch('./settings/settings.cfg')
+        .then(response => response.json())
+        .then((data) => {
+            callback(data.csvfile);
+        });
+}
 
 function getCSVFile(responseFromSite) {
     var csvFileName;
@@ -90,34 +121,3 @@ function createPlayersTbl(undraftedPlayers) {
         var undraftedPlayers = [["response empty", "no data"]];
     }
 }
-
-const getSettings = callback => {
-       fetch('./settings/settings.cfg')
-        .then(response => response.json())
-        .then((data) => {
-            callback(data.csvfile);
-        });
-}
-
-/*
-async function fetchSettings(settingName) {
-    try {
-        const response = await fetch('./settings/settings.cfg')
-        return response.json();
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
-console.log(await fetchSettings('csvfile'));
-
-async function getSettings(settingName) {
-    fetch('./settings/settings.cfg')
-        .then(response => response.json())
-        .then(data => {
-            something = data;
-        });
-}
-
-console.log(getSettings('csvfile'));
-*/
