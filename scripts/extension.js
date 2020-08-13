@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function getCSVFile(responseFromSite) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', chrome.extension.getURL('rankings/fpec.csv'), true);
+    xhr.open('GET', chrome.extension.getURL('rankings/ffbborischen.csv'), true);
     xhr.onreadystatechange = function()
     {
         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
@@ -87,3 +87,34 @@ function createPlayersTbl(undraftedPlayers) {
         var undraftedPlayers = [["response empty", "no data"]];
     }
 }
+
+const getTodo = callback => {
+       callback (fetch('./scripts/settings.cfg')
+        .then(response => response.json()))
+}
+getTodo(todo => {
+    console.log(todo)
+})
+
+/*
+async function fetchSettings(settingName) {
+    try {
+        const response = await fetch('./settings/settings.cfg')
+        return response.json();
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+console.log(await fetchSettings('csvfile'));
+
+async function getSettings(settingName) {
+    fetch('./settings/settings.cfg')
+        .then(response => response.json())
+        .then(data => {
+            something = data;
+        });
+}
+
+console.log(getSettings('csvfile'));
+*/
