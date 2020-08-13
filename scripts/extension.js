@@ -11,16 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function getCSVFile(responseFromSite) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', chrome.extension.getURL('rankings/ffbborischen.csv'), true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+    var csvFileName;
+    getSettings(completedReq => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', chrome.extension.getURL('rankings/' + completedReq + '.csv'), true);
+        xhr.onreadystatechange = function()
         {
-            createFileArray(xhr.response, responseFromSite);
-        }
-    };
-    xhr.send();
+            if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+            {
+                createFileArray(xhr.response, responseFromSite);
+            }
+        };
+        xhr.send();
+    })
 }
 
 function createFileArray(file, responseFromSite) {
@@ -88,13 +91,13 @@ function createPlayersTbl(undraftedPlayers) {
     }
 }
 
-const getTodo = callback => {
-       callback (fetch('./scripts/settings.cfg')
-        .then(response => response.json()))
+const getSettings = callback => {
+       fetch('./settings/settings.cfg')
+        .then(response => response.json())
+        .then((data) => {
+            callback(data.csvfile);
+        });
 }
-getTodo(todo => {
-    console.log(todo)
-})
 
 /*
 async function fetchSettings(settingName) {
