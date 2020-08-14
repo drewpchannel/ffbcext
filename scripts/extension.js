@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var button = document.getElementById('changelinks');
+    var button = document.getElementById('refreshplayers');
     button.addEventListener('click', function () {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             //possibly check for false and resend with message that content is loading

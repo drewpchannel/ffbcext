@@ -1,13 +1,13 @@
 {
     "manifest_version": 2,
-    "name": "Chrome Extension Sample",
-    "description": "This extension lets you manipulate the DOM",
-    "version": "1.1",
-    "homepage_url": "https://github.com/dvidsilva/chrome-ext-sample",
+    "name": "Yahoo Fantasy Football Tracker",
+    "description": "This extension follows what players are available and ranks them based on your spreadsheet",
+    "version": "1.2",
+    "homepage_url": "https://github.com/drewpchannel/ffbcext",
     "browser_action": {
         "default_icon": "favicon.png",
         "default_popup": "popup.html",
-        "default_title": "ChromiePop"
+        "default_title": "FFB Tracker"
     },
     "content_scripts": [{
         "matches": ["<all_urls>"],
@@ -19,7 +19,7 @@
         "storage"
     ],
     "web_accessible_resources": [
-        "rankings/fpec.csv"
+        "rankings/*"
     ],
     "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
 }
