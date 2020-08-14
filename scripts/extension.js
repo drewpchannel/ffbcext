@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
     var settingsButton = document.getElementById('settings');
+    var body = document.getElementsByTagName("body")[0];
     settingsButton.addEventListener('click', function () {
-        var body = document.getElementsByTagName("body")[0];
         if (document.getElementsByTagName("playersTable").length != 0) {
             document.getElementsByTagName("playersTable")[0].remove();
         }
@@ -19,33 +20,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setCSVName.value = "Enter CSV Filename";
         var body = document.getElementsByTagName("body")[0];
         body.appendChild(setCSVName);
+
         setCSVName.addEventListener('click', () => {
             setCSVName.value = "";
-        })
+        });
         var saveButton = document.createElement("button");
         saveButton.innerHTML = "Save";
         saveButton.addEventListener('click', () => {
-            if (setCSVName.value != "" || "Enter CSV Filename") {
-                console.log('rdy to write');
-            }
-        })
+            chrome.storage.local.set({'csvfile': setCSVName.value}, () => {
+                chrome.storage.local.get(['csvfile'], function(result) {
+                    setCSVName.remove();
+                    saveButton.remove();
+                });
+            });
+        });
         body.appendChild(saveButton);
     })
 });
 
-const getSettings = callback => {
-    fetch('./settings/settings.cfg')
-        .then(response => response.json())
-        .then((data) => {
-            callback(data.csvfile);
-        });
-}
-
 function getCSVFile(responseFromSite) {
-    var csvFileName;
-    getSettings(completedReq => {
+    chrome.storage.local.get(['csvfile'], function(result) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', chrome.extension.getURL('rankings/' + completedReq + '.csv'), true);
+        xhr.open('GET', chrome.extension.getURL('rankings/' + result.csvfile + '.csv'), true);
         xhr.onreadystatechange = function()
         {
             if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
@@ -54,7 +50,7 @@ function getCSVFile(responseFromSite) {
             }
         };
         xhr.send();
-    })
+    });
 }
 
 function createFileArray(file, responseFromSite) {
