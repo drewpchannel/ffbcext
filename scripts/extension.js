@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    createSettingsButton();
+});
 
+function createSettingsButton () {
     var settingsButton = document.getElementById('settings');
     var body = document.getElementsByTagName("body")[0];
     settingsButton.addEventListener('click', function () {
@@ -36,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         body.appendChild(saveButton);
     })
-});
+}
 
 function getCSVFile(responseFromSite) {
     chrome.storage.local.get(['csvfile'], function(result) {
