@@ -15,7 +15,9 @@
         "js":      ["scripts/content.js"]
     }],
     "permissions": [
-        "activeTab"
+        "activeTab",
+        {"fileSystem": ["write"]}
+
     ],
     "web_accessible_resources": [
         "rankings/fpec.csv"
