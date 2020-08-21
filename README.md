@@ -9,15 +9,19 @@ Switch on dev mode
 
 Load Unpacked
 
-Naviagte to the folder you unzipped, select the folder, click open
+Naviagte to the folder you unzipped the extension to, select the folder, click open
 
 Go to yahoo fantasy mock drafts and join a team
 
-After the draft starts there will be a puzzle icon in the top right, click it
+After the draft starts there will be a puzzle icon in the top right near your chrome address bar, click it
 
-select chrome extension with the purple icon
+select chrome extension called Yahoo Fantasy Football
 
-when you click change it will load the available players in the category selected (so if RBs is selected on yahoo you will only see your RB rankings)
+click setting and type in the name of your CSV file (has to be in the unzipped directory/ffbcext/rankings)
+
+click save, then hit refresh
+
+it will load the available players in the category selected (so if RBs are selected on yahoo you will only see your RB rankings)
 
 ## Rankings List
 Rankings CSVs should be placed into the rankings folder
@@ -36,6 +40,8 @@ The program will look for the player name, then the next column is assumed to be
 To keep the popup open while clicking on Yahoo, right click the extension window and click inspect.  As long as the inspection window is open it will not disapear
 
 ## Todo:
+Color code positions
+
 fix defenses 
 
 make sorting for pos (currently is handled by yahoo)
