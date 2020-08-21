@@ -26,11 +26,8 @@ it will load the available players in the category selected (so if RBs are selec
 ## Rankings List
 Rankings CSVs should be placed into the rankings folder
 
-In the chrome app itself click on settings and type in the name of your ranking list (do not include .csv)
-
-I'm going to use a CSV from fantasypros expert rankings or fantasyfootballcalculator's ADP list
-
 In Google Drive I'm going to do all my notes and editing
+  The program finds the player name.  It assumes next is the Team, then position, then notes (if long text is founde)
 
 The program looks for a player name (longer than 8 characters) then compares those names to Yahoo's list.  This will get tripped up by weird spacing or capitalization
 
@@ -42,6 +39,8 @@ To keep the popup open while clicking on Yahoo, right click the extension window
 notes at the end of player CSV row causing the next player to not sure up, I have been creating a new CSV with out my notes
 
 ## Todo:
+Compare players loaded to Yahoo table length
+
 Longer name table for juju ect
 
 Color code positions

@@ -61,7 +61,11 @@ function createFileArray(file, responseFromSite) {
     var fileArray = fileNoNewLines.split(',');
     fileArray.forEach((elem, ind) => {
         if (elem.length > 8) {
-            arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind +2]]);
+            if (fileArray[ind + 3].length > 6) {
+                arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2], fileArray[ind + 3]]);
+            } else {
+                arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2]]);
+            }
         }
     });
     checkForDrafted(arrayPlayerNames, responseFromSite);
@@ -100,10 +104,18 @@ function createPlayersTbl(undraftedPlayers) {
     if (undraftedPlayers) {
         undraftedPlayers.forEach((elem, ind) => {
             var tr = document.createElement("tr");
+            tr.style.backgroundColor = colorPos(elem[2]);
             var td = document.createElement("td");
             td.appendChild(document.createTextNode(elem[0]));
+            //left open to create a tooltip message for notes
+            if (elem[3]) {
+                td.addEventListener("mouseover", function (event) {
+
+                });
+            }
             tr.appendChild(td);
             var tdPos = document.createElement("td");
+            //tdPos.style.backgroundColor = colorPos(elem[2]);
             tdPos.appendChild(document.createTextNode(elem[2]));
             tr.appendChild(tdPos);
             var tdTem = document.createElement("td");
@@ -127,5 +139,17 @@ function clearApp() {
     }
     if (document.getElementById("saveCSV")) {
         document.getElementById("saveCSV").remove();
+    }
+}
+
+function colorPos(pos) {
+    if (pos.includes('RB')) {
+        return '#FAD5CE';
+    } else if (pos.includes('QB')) {
+        return '#CEE5FA';
+    } else if (pos.includes('WR')) {
+        return '#FAF5CE';
+    } else if (pos.includes('TE')) {
+        return '#CEFAE1'
     }
 }
