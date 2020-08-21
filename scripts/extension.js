@@ -98,7 +98,11 @@ function createFileArray(file, responseFromSite) {
     var fileArray = fileNoNewLines.split(',');
     fileArray.forEach((elem, ind) => {
         if (elem.length > 8) {
-            if (fileArray[ind + 3].length > 6) {
+            if (fileArray[ind + 2].includes('DEF') || fileArray[ind + 2].includes('DST')) {
+                checkDefense(elem, (result) => {
+                    arrayPlayerNames.push([result, fileArray[ind + 1], fileArray[ind + 2], 'd found']);
+                });
+            } else if (fileArray[ind + 3].length > 6) {
                 arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2], fileArray[ind + 3]]);
             } else {
                 arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2]]);
@@ -112,7 +116,7 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
     var undraftedPlayers = [];
     arrayPlayerNames.forEach((elem, ind) => {
         responseFromSite.forEach((elemFS, indFS) => {
-            if (responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
+            if(responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
                 undraftedPlayers.push(arrayPlayerNames[ind]);
             }
         });
@@ -191,4 +195,13 @@ function colorPos(pos) {
     } else if (pos.includes('K')) {
         return '#F8CEFA';
     }
+}
+
+function checkDefense(nameFromCSV, callback) {
+    var defenseNames = ['Chicago', 'Kansas City', 'San Francisco', 'New Orleans', 'Baltimore', 'Pittsburgh', 'Buffalo', 'Minnesota', 'New England', 'Los Angeles', 'Denver', 'Philadelphia', 'Tennessee', 'Seattle', 'Cleveland', 'Dallas', 'Indianapolis', 'New York', 'Tampa Bay', 'Cincinnati', 'Houston', 'Jacksonville'];
+    defenseNames.forEach((elem, ind) => {
+        if (nameFromCSV.includes(elem)){
+            callback(elem + " ");
+        }
+    });
 }

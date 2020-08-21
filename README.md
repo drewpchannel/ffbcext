@@ -39,19 +39,10 @@ To keep the popup open while clicking on Yahoo, right click the extension window
 notes at the end of player CSV row causing the next player to not sure up, I have been creating a new CSV with out my notes
 
 ## Todo:
-Auto refresh changes with out hitting the button
 
 Compare players loaded to Yahoo table length
 
-Longer name table for juju ect
-
-Color code positions
-
-fix defenses 
-
 make sorting for pos (currently is handled by yahoo)
-
-settings file for importing csv, which col \ index is player \ pos \ team
 
 I kind of want the ADP of some sort from CR or fantasy pros (maybe use stylesheet to just number the RBs in Google Drive)
 
