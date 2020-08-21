@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function () {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             //possibly check for false and resend with message that content is loading
-            chrome.tabs.sendMessage(tabs[0].id, {data:'McNuggets'}, (responseFromSite) => {
+            chrome.tabs.sendMessage(tabs[0].id, {data:'empty'}, (responseFromSite) => {
                 getCSVFile(responseFromSite.tableInfo);
             });
         });
@@ -15,12 +15,11 @@ function createSettingsButton () {
     var settingsButton = document.getElementById('settings');
     var body = document.getElementsByTagName("body")[0];
     settingsButton.addEventListener('click', function () {
-        if (document.getElementsByTagName("playersTable").length != 0) {
-            document.getElementsByTagName("playersTable")[0].remove();
-        }
+        clearApp();
         var setCSVName = document.createElement("input");
         setCSVName.type = "text";
         setCSVName.value = "Enter CSV Filename";
+        setCSVName.setAttribute("id", "inputCSV");
         var body = document.getElementsByTagName("body")[0];
         body.appendChild(setCSVName);
 
@@ -29,11 +28,11 @@ function createSettingsButton () {
         });
         var saveButton = document.createElement("button");
         saveButton.innerHTML = "Save";
+        saveButton.setAttribute("id", "saveCSV");
         saveButton.addEventListener('click', () => {
             chrome.storage.local.set({'csvfile': setCSVName.value}, () => {
                 chrome.storage.local.get(['csvfile'], function(result) {
-                    setCSVName.remove();
-                    saveButton.remove();
+                    clearApp();
                 });
             });
         });
@@ -82,9 +81,7 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
 
 function createPlayersTbl(undraftedPlayers) {
     var body = document.getElementsByTagName("body")[0];
-    if (document.getElementsByTagName("playersTable").length != 0) {
-        document.getElementsByTagName("playersTable")[0].remove();
-    }
+    clearApp();
     var table = document.createElement("playersTable");
     table.setAttribute("id", "playersTable");
 
@@ -118,5 +115,17 @@ function createPlayersTbl(undraftedPlayers) {
     body.appendChild(table);
     } else {
         var undraftedPlayers = [["response empty", "no data"]];
+    }
+}
+
+function clearApp() {
+    if (document.getElementsByTagName("playersTable").length != 0) {
+        document.getElementsByTagName("playersTable")[0].remove();
+    }
+    if (document.getElementById("inputCSV")) {
+        document.getElementById("inputCSV").remove();
+    }
+    if (document.getElementById("saveCSV")) {
+        document.getElementById("saveCSV").remove();
     }
 }
