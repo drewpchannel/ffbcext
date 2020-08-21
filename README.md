@@ -17,7 +17,7 @@ After the draft starts there will be a puzzle icon in the top right near your ch
 
 select chrome extension called Yahoo Fantasy Football
 
-click setting and type in the name of your CSV file (has to be in the unzipped directory/ffbcext/rankings)
+click setting and type in the name of your CSV file (has to be in the unzipped directory/ffbcext/rankings) do not include .csv
 
 click save, then hit refresh
 
@@ -39,7 +39,11 @@ The program will look for the player name, then the next column is assumed to be
 ## Work Around
 To keep the popup open while clicking on Yahoo, right click the extension window and click inspect.  As long as the inspection window is open it will not disapear
 
+notes at the end of player CSV row causing the next player to not sure up, I have been creating a new CSV with out my notes
+
 ## Todo:
+Longer name table for juju ect
+
 Color code positions
 
 fix defenses 

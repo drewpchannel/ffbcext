@@ -56,7 +56,7 @@ function getCSVFile(responseFromSite) {
 }
 
 function createFileArray(file, responseFromSite) {
-    var fileNoNewLines = file.replace( /[\r\n\"]+/gm, "" );
+    var fileNoNewLines = file.replace( /[\r\n\"]+/gm, "," );
     var arrayPlayerNames = [];
     var fileArray = fileNoNewLines.split(',');
     fileArray.forEach((elem, ind) => {
