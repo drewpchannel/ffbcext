@@ -39,6 +39,8 @@ To keep the popup open while clicking on Yahoo, right click the extension window
 notes at the end of player CSV row causing the next player to not sure up, I have been creating a new CSV with out my notes
 
 ## Todo:
+Auto refresh changes with out hitting the button
+
 Compare players loaded to Yahoo table length
 
 Longer name table for juju ect

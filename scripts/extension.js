@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     createSettingsButton();
+    createADPButton();
+    createUserButton();
 });
 
 function createSettingsButton () {
@@ -26,24 +28,52 @@ function createSettingsButton () {
         setCSVName.addEventListener('click', () => {
             setCSVName.value = "";
         });
+
         var saveButton = document.createElement("button");
         saveButton.innerHTML = "Save";
         saveButton.setAttribute("id", "saveCSV");
         saveButton.addEventListener('click', () => {
             chrome.storage.local.set({'csvfile': setCSVName.value}, () => {
+                // might remove this
                 chrome.storage.local.get(['csvfile'], function(result) {
                     clearApp();
                 });
             });
+            chrome.storage.local.set({'userSheet': setCSVName.value}, () => {});
         });
         body.appendChild(saveButton);
-    })
+    });
+}
+
+function createADPButton () {
+    var adpButton = document.getElementById("adpButton");
+    adpButton.addEventListener('click' ,() => {
+        clearApp();
+        chrome.storage.local.set({'csvfile': 'adp'});
+    });
+}
+
+function createUserButton () {
+    var userButton = document.getElementById("userButton");
+    userButton.addEventListener('click' ,() => {
+        clearApp();
+        chrome.storage.local.get(['userSheet'], function(result) {
+            chrome.storage.local.set({'csvfile': result.userSheet}, function(result) {
+                chrome.storage.local.get(['csvfile'], function(result) {});
+            });
+        });
+    });
 }
 
 function getCSVFile(responseFromSite) {
     chrome.storage.local.get(['csvfile'], function(result) {
+        if (!result.csvfile) {
+            csvReturns = 'default';
+        } else {
+            csvReturns = result.csvfile;
+        }
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', chrome.extension.getURL('rankings/' + result.csvfile + '.csv'), true);
+        xhr.open('GET', chrome.extension.getURL('rankings/' + csvReturns + '.csv'), true);
         xhr.onreadystatechange = function()
         {
             if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
@@ -150,6 +180,8 @@ function colorPos(pos) {
     } else if (pos.includes('WR')) {
         return '#FAF5CE';
     } else if (pos.includes('TE')) {
-        return '#CEFAE1'
+        return '#CEFAE1';
+    } else if (pos.includes('K')) {
+        return '#F8CEFA';
     }
 }
