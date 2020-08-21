@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             //possibly check for false and resend with message that content is loading
             chrome.tabs.sendMessage(tabs[0].id, {data:'empty'}, (responseFromSite) => {
+                chrome.storage.local.set({'lastSiteResponse': responseFromSite.tableInfo}, () => {});
                 getCSVFile(responseFromSite.tableInfo);
             });
         });
@@ -50,6 +51,9 @@ function createADPButton () {
     adpButton.addEventListener('click' ,() => {
         clearApp();
         chrome.storage.local.set({'csvfile': 'adp'});
+        chrome.storage.local.get(['lastSiteResponse'], (result) => {
+            getCSVFile(result.lastSiteResponse);
+        });
     });
 }
 
@@ -61,6 +65,9 @@ function createUserButton () {
             chrome.storage.local.set({'csvfile': result.userSheet}, function(result) {
                 chrome.storage.local.get(['csvfile'], function(result) {});
             });
+        });
+        chrome.storage.local.get(['lastSiteResponse'], (result) => {
+            getCSVFile(result.lastSiteResponse);
         });
     });
 }
