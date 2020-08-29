@@ -33,6 +33,8 @@ The program looks for a player name (longer than 8 characters) then compares tho
 
 The program will look for the player name, then the next column is assumed to be a team, the next position
 
+Defenses should be named by the city 
+
 ## Work Around
 To keep the popup open while clicking on Yahoo, right click the extension window and click inspect.  As long as the inspection window is open it will not disapear
 

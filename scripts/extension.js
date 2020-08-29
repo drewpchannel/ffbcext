@@ -107,6 +107,10 @@ function createFileArray(file, responseFromSite) {
             if ( posOfSecondSpace != -1) {
                 elem = elem.substring(0, posOfSecondSpace);
             }
+            var defenseResults = checkForDefense(elem);
+            if (defenseResults != -1) {
+                elem = defenseResults + ' ';
+            }
             if (fileArray[ind + 3].length > 6) {
                 arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2], fileArray[ind + 3]]);
             } else {
@@ -124,6 +128,10 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
             var posOfSecondSpace = responseFromSite[indFS][0].indexOf(' ', responseFromSite[indFS][0].indexOf(' ') + 1);
             if ( posOfSecondSpace != -1) {
                 responseFromSite[indFS][0] = responseFromSite[indFS][0].substring(0, posOfSecondSpace);
+            }
+            if (responseFromSite[indFS][0].includes("Los Angeles") || arrayPlayerNames[ind][0].includes("Los Angeles")) {
+                console.log(arrayPlayerNames[ind][0]);
+                console.log(responseFromSite[indFS][0]);
             }
             if(responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
                 undraftedPlayers.push(arrayPlayerNames[ind]);
@@ -203,5 +211,24 @@ function colorPos(pos) {
         return '#CEFAE1';
     } else if (pos.includes('K')) {
         return '#F8CEFA';
+    }
+}
+
+function checkForDefense(elem) {
+    if (elem.indexOf("DEF") != -1) {
+        return elem.substring(0, elem.indexOf("DEF") - 1);
+    }
+    if (elem.indexOf("DST") != -1) {
+        return elem.substring(0, elem.indexOf("DST") - 1);
+    }
+
+    if (elem.indexOf("Defense") != -1) {
+        return elem.substring(0, elem.indexOf("Defense") - 1);
+    }
+
+    if (elem.indexOf(" (") != -1) {
+        return elem.substring(0, elem.indexOf(" ("));
+    } else {
+    return -1;
     }
 }
