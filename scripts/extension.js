@@ -98,11 +98,12 @@ function createFileArray(file, responseFromSite) {
     var fileArray = fileNoNewLines.split(',');
     fileArray.forEach((elem, ind) => {
         if (elem.length > 8) {
-            if (fileArray[ind + 2].includes('DEF') || fileArray[ind + 2].includes('DST')) {
-                checkDefense(elem, (result) => {
-                    arrayPlayerNames.push([result, fileArray[ind + 1], fileArray[ind + 2], 'd found']);
-                });
-            } else if (fileArray[ind + 3].length > 6) {
+            //destroys my notes but sticking with this for the core function of the app
+            var posOfSecondSpace = elem.indexOf(' ', elem.indexOf(' ') + 1);
+            if ( posOfSecondSpace != -1) {
+                elem = elem.substring(0, posOfSecondSpace);
+            }
+            if (fileArray[ind + 3].length > 6) {
                 arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2], fileArray[ind + 3]]);
             } else {
                 arrayPlayerNames.push([elem, fileArray[ind + 1], fileArray[ind + 2]]);
@@ -116,6 +117,10 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
     var undraftedPlayers = [];
     arrayPlayerNames.forEach((elem, ind) => {
         responseFromSite.forEach((elemFS, indFS) => {
+            var posOfSecondSpace = responseFromSite[indFS][0].indexOf(' ', responseFromSite[indFS][0].indexOf(' ') + 1);
+            if ( posOfSecondSpace != -1) {
+                responseFromSite[indFS][0] = responseFromSite[indFS][0].substring(0, posOfSecondSpace);
+            }
             if(responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
                 undraftedPlayers.push(arrayPlayerNames[ind]);
             }
@@ -195,13 +200,4 @@ function colorPos(pos) {
     } else if (pos.includes('K')) {
         return '#F8CEFA';
     }
-}
-
-function checkDefense(nameFromCSV, callback) {
-    var defenseNames = ['Chicago', 'Kansas City', 'San Francisco', 'New Orleans', 'Baltimore', 'Pittsburgh', 'Buffalo', 'Minnesota', 'New England', 'Los Angeles', 'Denver', 'Philadelphia', 'Tennessee', 'Seattle', 'Cleveland', 'Dallas', 'Indianapolis', 'New York', 'Tampa Bay', 'Cincinnati', 'Houston', 'Jacksonville'];
-    defenseNames.forEach((elem, ind) => {
-        if (nameFromCSV.includes(elem)){
-            callback(elem + " ");
-        }
-    });
 }
