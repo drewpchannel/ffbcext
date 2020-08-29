@@ -1,4 +1,7 @@
 ## How to install:
+
+[Setup Video](https://imgur.com/a/SNRc7hJ)
+
 Click code, download zip
 
 Unzip the file by right clicking it and selecting extract
