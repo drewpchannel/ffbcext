@@ -49,6 +49,8 @@ function createSettingsButton () {
 function createADPButton () {
     var adpButton = document.getElementById("adpButton");
     adpButton.addEventListener('click' ,() => {
+        adpButton.style.backgroundColor = "#b3975b";
+        document.getElementById("userButton").style.backgroundColor = "#efefef";
         clearApp();
         chrome.storage.local.set({'csvfile': 'adp'});
         chrome.storage.local.get(['lastSiteResponse'], (result) => {
@@ -60,6 +62,8 @@ function createADPButton () {
 function createUserButton () {
     var userButton = document.getElementById("userButton");
     userButton.addEventListener('click' ,() => {
+        userButton.style.backgroundColor = "#b3975b";
+        document.getElementById("adpButton").style.backgroundColor = "#efefef";
         clearApp();
         chrome.storage.local.get(['userSheet'], function(result) {
             chrome.storage.local.set({'csvfile': result.userSheet}, function(result) {
