@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
     createUserButton();
 });
 
+chrome.storage.local.get('lastPlayerList', (data) => {
+    if (data.lastPlayerList == 'adp') {
+        document.getElementById('adpButton').click();
+    } else if (data.lastPlayerList == 'user') {
+        document.getElementById('userButton').click();
+    }
+});
+
 function refreshPlayersList () {
     //may cause an error if not refresh, var should be deleted
     var saveTabs;
@@ -66,6 +74,7 @@ function createSettingsButton () {
 function createADPButton () {
     var adpButton = document.getElementById("adpButton");
     adpButton.addEventListener('click' ,() => {
+        updateLastList('adp');
         refreshPlayersList();
         adpButton.style.backgroundColor = "#b3975b";
         document.getElementById("userButton").style.backgroundColor = "#efefef";
@@ -80,6 +89,7 @@ function createADPButton () {
 function createUserButton () {
     var userButton = document.getElementById("userButton");
     userButton.addEventListener('click' ,() => {
+        updateLastList('user');
         refreshPlayersList();
         userButton.style.backgroundColor = "#b3975b";
         document.getElementById("adpButton").style.backgroundColor = "#efefef";
@@ -149,8 +159,8 @@ function checkForDrafted(arrayPlayerNames, responseFromSite) {
                 responseFromSite[indFS][0] = responseFromSite[indFS][0].substring(0, posOfSecondSpace);
             }
             if (responseFromSite[indFS][0].includes("Los Angeles") || arrayPlayerNames[ind][0].includes("Los Angeles")) {
-                console.log(arrayPlayerNames[ind][0]);
-                console.log(responseFromSite[indFS][0]);
+                //console.log(arrayPlayerNames[ind][0]);
+                //console.log(responseFromSite[indFS][0]);
             }
             if(responseFromSite[indFS][0] == arrayPlayerNames[ind][0]) {
                 undraftedPlayers.push(arrayPlayerNames[ind]);
@@ -250,4 +260,8 @@ function checkForDefense(elem) {
     } else {
     return -1;
     }
+}
+
+function updateLastList(choice) {
+    chrome.storage.local.set({'lastPlayerList': choice}, () => {});
 }
