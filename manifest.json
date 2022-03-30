@@ -1,27 +1,26 @@
 {
     "manifest_version": 2,
-    "name": "SolarWinds Assist",
-    "description": "Checks every 5 seconds for new incident tickets",
+    "name": "Yahoo Fantasy Football Tracker",
+    "description": "This extension follows what players are available and ranks them based on your spreadsheet",
     "version": "1.2",
-    "homepage_url": "https://www.noidea897987987.com",
+    "homepage_url": "https://github.com/drewpchannel/ffbcext",
     "browser_action": {
         "default_icon": "favicon.png",
         "default_popup": "popup.html",
-        "default_title": "SolarWinds Assist"
+        "default_title": "FFB Tracker"
     },
     "content_scripts": [{
-        "matches": ["*://*.ticketnetwork.com/*"],
-        "js":      ["scripts/content.js", "scripts/settings.js"],
-        "run_at": "document_end"
+        "matches": ["<all_urls>"],
+        "all_frames": true,
+        "js":      ["scripts/content.js"]
     }],
     "permissions": [
         "activeTab",
         "storage"
     ],
-    "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'",
-    "externally_connectable" : {
-        "matches": ["*://*.ticketnetwork.com/*"],
-        "ids": ["cliaehbjehgfgjodigeoimfdjkdopbko"]
-    }
+    "web_accessible_resources": [
+        "rankings/*"
+    ],
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/; object-src 'self'"
 }
 
